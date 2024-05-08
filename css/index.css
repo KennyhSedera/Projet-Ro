@@ -1,0 +1,250 @@
+.autoHide {
+    opacity: 0;
+    margin-left: 1em;
+    transition: .6s all;
+}
+
+.red-point {
+    fill: red !important;
+}
+
+span.error {
+    color: red !important;
+    position: absolute;
+    bottom: 55px;
+}
+
+.capacite:hover {
+    stroke: #007f64;
+    fill: #007f64;
+    cursor: pointer;
+}
+
+tr:hover>td>.autoHide {
+    margin-left: 0;
+    opacity: 1;
+}
+
+text,
+.text {
+    font-size: 14pt;
+    font-weight: bold;
+}
+
+.text {
+    color: white;
+}
+
+title {
+    font-size: 14pt;
+}
+
+.point:hover {
+    cursor: pointer;
+}
+
+.point circle {
+    transition: .5s all;
+}
+
+.point:hover circle {
+    fill: #007f64;
+    stroke: #ffffff;
+}
+
+.point:hover text {
+    stroke: white;
+    fill: white;
+}
+
+mark {
+    padding: .7em;
+    border-radius: 40px;
+}
+
+.flotRes {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding-inline: 10px;
+    min-width: 80px;
+    height: 40px;
+    background-color: #393939 !important;
+    border: 1px solid #ffffff5e;
+    position: absolute;
+    top: 10px;
+    border-radius: 10px;
+    z-index: 99;
+    color: white;
+}
+
+.ml-5 {
+    margin-left: 5px;
+}
+
+.abs {
+    position: absolute;
+    left: 0;
+    top: 0;
+    display: none;
+}
+
+.arrow {
+    width: 50px;
+    height: 1px;
+    position: relative;
+    background-color: #ff0000d4;
+    margin-right: 10px;
+    margin-left: 5px;
+}
+
+.arrow:before {
+    content: '';
+    position: absolute;
+    top: -4px;
+    left: calc(100% - 10px);
+    width: 0;
+    height: 0;
+    border-top: 5px solid transparent;
+    border-bottom: 5px solid transparent;
+    border-left: 15px solid #ff0000d4;
+}
+
+.list {
+    background-color: #393939 !important;
+    border: 1px solid #ffffff5e;
+    border-radius: 10px;
+    list-style-type: none;
+    padding-inline: 0;
+    margin: 0;
+    min-width: 200px;
+}
+
+li {
+    padding-block: 10px;
+    padding-left: 20px;
+    text-align: left;
+    color: white;
+    cursor: pointer;
+    border-bottom: 1px solid #ffffff16;
+}
+
+li:nth-last-child(1) {
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+}
+
+li:nth-child(1) {
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
+li:hover {
+    background-color: #007f63ad !important;
+}
+
+li:hover.supp {
+    background-color: #ba0101b9 !important;
+}
+
+.rowRead {
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 8px;
+    align-items: center;
+}
+
+.circle {
+    width: 40px;
+    height: 40px;
+    justify-content: center;
+    align-items: center;
+    margin-right: 10px;
+    display: flex;
+    border: 1px solid #ffffffe4;
+    border-radius: 20px;
+}
+
+.flot {
+    background-color: orange;
+}
+
+.lien {
+    background-color: red;
+}
+
+.cardMenu {
+    position: absolute;
+    min-width: 50px;
+    min-height: 50px;
+}
+
+.cardSousMenu {
+    padding: 5px;
+    border: 2px solid white;
+    background-color: #393939 !important;
+    border-radius: 10px;
+}
+
+.card {
+    width: 100%;
+    display: flex;
+    flex-direction: column !important;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+}
+
+.fdColumn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    width: 200px;
+    gap: 10px;
+    padding-block: 10px;
+}
+
+input,
+select {
+    background-color: #393939;
+    height: 50px;
+    width: 50px;
+    text-align: center;
+    border: 1px solid white;
+    outline: none;
+    border-radius: 10px;
+}
+
+select {
+    width: 60px;
+    padding-inline: 10px;
+}
+
+.selectForm {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+button {
+    background-color: #007f64;
+    border: 1px solid white;
+    color: white;
+    border-radius: 5px;
+    padding-block: 5px;
+    font-size: 12px;
+}
+
+button:disabled {
+    background-color: #393939;
+    cursor: none;
+}
+
+.cardTitle {
+    text-align: center;
+    font-size: 20px;
+    color: #007f64;
+    font-weight: bold;
+}

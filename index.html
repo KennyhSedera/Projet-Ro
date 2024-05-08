@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html ng-app="flot-max">
+
+<head>
+    <meta charset="UTF-8">
+    <title>R.0 Flot MAX</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/index.css">
+    <script src="js/jquery.min.js" charset="utf-8"></script>
+    <script src="js/jquery-ui.js"></script>
+    <script src="js/bootstrap.min.js" charset="utf-8"></script>
+    <script src="js/d3.min.js" charset="utf-8"></script>
+    <script src="js/angular.min.js" charset="utf-8"></script>
+    <script src="app.js" charset="utf-8"></script>
+</head>
+
+<body>
+    <div class="container" ng-class="{'fond-rouge': lienApartirExecuted}" style="margin-top: 10px;"
+        ng-controller="pointsAdd">
+        <div class="grid">
+            <div class="row">
+                <!-- <div class="panel panel-default"> -->
+                <div style="
+                width: 300px; 
+                position: absolute; 
+                top: 10px; 
+                left: 10px;
+                display: flex; 
+                flex-direction: column;
+                justify-content: center;">
+                    <!-- titre -->
+                    <div class="panel-heading" style="
+                    text-align: center; 
+                    border-radius: 10px; 
+                    background-color: #454545c0; 
+                    border : 1px solid #ffffffe4;
+                    ">
+                        <h1>Projet R.O </h1>
+                        <h2>Flot Maximal </h2>
+                    </div>
+                    <!-- nom -->
+                    <div style="
+                    background-color: #454545c0; 
+                    border : 1px solid #ffffffe4; 
+                    border-radius: 10px;
+                    margin-top: 10px;
+                    padding-block: 15px;
+                    padding-inline: 10px;">
+                        <div style="
+                        text-align: center; 
+                        font-size: 22px; 
+                        padding: 5px; 
+                        font-weight: 700; 
+                        margin-bottom: 10px;">Présenter par : </div>
+                        <h4>- RAFANOMANANTSOA Sedera Martin Kenys (1142 H-F / M1 IG)</h4>
+                        <h4>- RAHARISON Frédéric Vestephan (1132 H-F / M1 IG)</h4>
+                    </div>
+                </div>
+
+                <div style=" position: absolute !important; width: 73%; right: 20px;">
+                    <div class="flotRes">Flot max : <b class="text ml-5">{{ flotMax ? flotMax : 0 }}</b></div>
+                    <div class="row mb-5">
+                        <div class="col-sm-12" id="graphe" style=" 
+                        border : 1px solid #ffffffe4; border-radius: 10px;
+                        background: #000000a4 !important;
+                         "></div>
+                    </div>
+                    <div style=" display: flex; flex-direction: row; align-items: flex-start;
+                    margin-block: 10px; position: relative;
+                    border : 1px solid #ffffffe4; border-radius: 10px;
+                    background: #454545c0 !important; margin-inline: -15px; padding: 20px;">
+                        <div style="display: flex; flex-direction: column; width: 30%;">
+                            <div class="rowRead">
+                                <div class="text circle">
+                                    {{ flotMax ? flotMax : 0 }}</div>
+                                <label> : Flot max</label>
+                            </div>
+                            <div class="rowRead">
+                                <span
+                                    style="height: 30px; min-width: 100px; justify-content: center; align-items: center; display: flex;  border : 1px solid #ffffffe4; border-radius: 5px; margin-right: 10px; padding-inline: 10px;">
+                                    {{ source ? source.nom : 'Source' }}
+                                    <div class="arrow"></div>
+                                    {{ target ? target.nom : 'Destination' }}
+                                </span>
+                                <label> : Chemins</label>
+                            </div>
+                        </div>
+                        <div style=" width: 70%; padding-inline: 20px; border-left: 1px solid #ffffff ;">
+                            <div ng-repeat="t in traitements"
+                                style="display: flex; flex-direction: row; margin-top: 8px; align-items: center;">
+                                <div
+                                    style="width: 35px; height: 35px; justify-content: center; align-items: center; display: flex;  border : 1px solid #ffffffe4; border-radius: 20px;">
+                                    {{t.flot}}</div>
+                                <div
+                                    style="height: 30px; justify-content: center; align-items: center; display: flex;  border: 1px solid #ffffffe4; border-radius: 5px; margin-left: 10px; padding-inline: 10px;">
+                                    <span>{{ donneesGraphe.nodes[t.chemin[0][0]].nom }}</span>
+                                    <div ng-repeat="c in t.chemin" ng-if="$index > 0"
+                                        style=" justify-content: center; align-items: center; display: flex;">
+                                        <div class="arrow"></div>
+                                        <span>{{ donneesGraphe.nodes[c[0]].nom }}</span>
+                                    </div>
+                                    <div class="arrow"></div>
+                                    <span>{{ donneesGraphe.nodes[t.chemin[t.chemin.length-1][1]].nom }}</span>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <ul class="list abs graphemenucontextuel">
+            <li ng-click="refresh()">Actualiser</li>
+            <li ng-click="showModalCreationPoint()">Créer nouvel sommet</li>
+            <li ng-click="showModalCalculFlott()">Calculer flot maximal</li>
+            <li ng-click="enregistrer()">Enregistrer la graphe</li>
+            <li ng-click="deleteState()" class="supp">Supprimer la graphe</li>
+        </ul>
+
+        <ul class="list abs pointmenucontextuel">
+            <li ng-click="lienApartir()">{{ sourceNom ? "Source : "+sourceNom : "Source"}}</li>
+            <li ng-click="lienVers()">{{ targetNom ? "Destination : "+targetNom : "Destination"}}</li>
+            <li ng-click="supprPoint()" class="supp">Supprimer</a></li>
+        </ul>
+
+        <ul class="list abs linkmenucontextuel" style="display: none;">
+            <li ng-click="modifierLien()">Modifier</li>
+            <li ng-click="supprimerLien()" class="supp">Supprimer</li>
+        </ul>
+
+        <div class="cardMenu creerPointMenu">
+            <div class="cardTitle">Point</div>
+            <div class="cardSousMenu">
+                <div class="card">
+                    <input type="text" class="text" ng-model="point.nom">
+                    <button ng-disabled="!point.nom" ng-click="creerPoint(point)">Créer</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="cardMenu calculeFlot">
+            <div class="cardTitle">Flot Maximal</div>
+            <div class="cardSousMenu fdColumn col-12" style="margin-bottom: 10px;">
+                <div class="rowRead" style="gap: 30px;">
+                    <div class="selectForm">
+                        <label>Source</label>
+                        <!-- <select class="text" ng-model="source" ng-change="getSource()"
+                            ng-options="noeud.nom for noeud in donneesGraphe.nodes"></select> -->
+                        <input class="text sourceinput" type="text" ng-model="sourceFlot" ng-change="getSource()">
+                        <span class="error" ng-if="sourceError == true">Non validé</span>
+                    </div>
+                    <div class="selectForm">
+                        <label>Fin</label>
+                        <!-- <select class="text" ng-model="target" ng-change="getTarget()"
+                            ng-options="noeud.nom for noeud in donneesGraphe.nodes"></select> -->
+                        <input class="text targetinput" type="text" ng-model="targetFlot" ng-change="getTarget()">
+                        <span class="error" ng-if="targetError == true">Non validé</span>
+                    </div>
+                </div>
+                <button style="width: 150px; height: 35px;"
+                    ng-disabled="(source == null || target == null) || (source == target) || (sourceError == true) || (targetError == true)"
+                    ng-click="calculerFlotMax()">Calculer</button>
+            </div>
+        </div>
+
+        <div class="cardMenu creerCapacite">
+            <div class="cardTitle">Capacité</div>
+            <div class="cardSousMenu">
+                <div class="card">
+                    <input type="text" class="text" ng-model="lien.capacite">
+                    <button ng-disabled="lien.capacite === 0"
+                        ng-click="linkBtn(lien)">{{linkup?'Modifier':'Créer'}}</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="graphe.js" charset="utf-8"></script>
+    <script src="scripts/flotmax.js"></script>
+</body>
+
+</html>
